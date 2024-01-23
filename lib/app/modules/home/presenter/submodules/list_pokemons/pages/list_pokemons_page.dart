@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:pokedex_flutter/app/core/widgets/bottom_sheet_manager.dart';
 import 'package:pokedex_flutter/app/modules/home/domain/entity/pokemon_detail_home.dart';
+import 'package:pokedex_flutter/app/modules/home/presenter/submodules/list_pokemons/widgets/pokemon_details_bottomsheet.dart';
 
 import '../../../../../../core/extensions/capitalize_first_letter_extension.dart';
 import '../../../../../../core/extensions/pokemon_id_extension.dart';
@@ -83,24 +85,6 @@ class _ListPokemonsPageState extends State<ListPokemonsPage> {
               return CustomScrollView(
                 controller: _scrollController,
                 slivers: [
-                  SliverToBoxAdapter(
-                    child: Padding(
-                      padding:
-                          const EdgeInsets.only(left: 24, right: 24, top: 46),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Image.asset('img/gear.png'),
-                              Image.asset('img/bell.png'),
-                            ],
-                          ),
-                          Image.asset('img/pokemon_img.png'),
-                        ],
-                      ),
-                    ),
-                  ),
                   SliverPadding(
                     padding: const EdgeInsets.only(left: 38, top: 56),
                     sliver: SliverToBoxAdapter(
@@ -115,97 +99,112 @@ class _ListPokemonsPageState extends State<ListPokemonsPage> {
                     itemBuilder: (context, index) {
                       final pokemon = listPokemons[index];
 
-                      return Card(
-                        color: pokemon.types.first.type!.backgroundCardColors(),
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 24, vertical: 12),
-                        child: Row(
-                          children: [
-                            Flexible(
-                              child: Container(
-                                margin: const EdgeInsets.only(
-                                  left: 24,
-                                  top: 16,
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      pokemon.id.pokemonId(),
-                                      style: textTheme.bodySmall,
-                                    ),
-                                    const SizedBox(height: 8),
-                                    Text(
-                                      pokemon.name.capitalizeFirstLetter(),
-                                      style: textTheme.headlineMedium,
-                                    ),
-                                    const SizedBox(height: 16),
-                                    Row(
-                                      children: [
-                                        ...pokemon.types.map(
-                                          (type) => Container(
-                                            padding: const EdgeInsets.symmetric(
-                                              vertical: 4,
-                                              horizontal: 8,
-                                            ),
-                                            margin:
-                                                const EdgeInsets.only(right: 8),
-                                            decoration: BoxDecoration(
-                                              color: type.type!.typeColors(),
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
-                                            ),
-                                            child: Row(
-                                              children: [
-                                                Image.asset(
-                                                    type.type!.typeImage()),
-                                                const SizedBox(
-                                                  width: 2.5,
-                                                ),
-                                                Text(
-                                                  type.type!.name!
-                                                      .capitalizeFirstLetter(),
-                                                  style: textTheme.bodySmall!
-                                                      .copyWith(
-                                                          color: ThemeColors
-                                                              .white),
-                                                ),
-                                              ],
+                      return GestureDetector(
+                        onTap: () {
+                          BottomSheetManager.showBottomSheetModal(
+                            context: context,
+                            content:
+                                PokemonDetailsBottomSheet(pokemon: pokemon),
+                          );
+                        },
+                        child: Card(
+                          color:
+                              pokemon.types.first.type!.backgroundCardColors(),
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 24, vertical: 12),
+                          child: Row(
+                            children: [
+                              Flexible(
+                                child: Container(
+                                  margin: const EdgeInsets.only(
+                                    left: 24,
+                                    top: 16,
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        pokemon.id.pokemonId(),
+                                        style: textTheme.bodySmall,
+                                      ),
+                                      const SizedBox(height: 8),
+                                      Text(
+                                        pokemon.name.capitalizeFirstLetter(),
+                                        style: textTheme.headlineMedium,
+                                      ),
+                                      const SizedBox(height: 16),
+                                      Row(
+                                        children: [
+                                          ...pokemon.types.map(
+                                            (type) => Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                vertical: 4,
+                                                horizontal: 8,
+                                              ),
+                                              margin: const EdgeInsets.only(
+                                                  right: 8),
+                                              decoration: BoxDecoration(
+                                                color: type.type!.typeColors(),
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                              ),
+                                              child: Row(
+                                                children: [
+                                                  Image.asset(
+                                                      type.type!.typeImage()),
+                                                  const SizedBox(
+                                                    width: 2.5,
+                                                  ),
+                                                  Text(
+                                                    type.type!.name!
+                                                        .capitalizeFirstLetter(),
+                                                    style: textTheme.bodySmall!
+                                                        .copyWith(
+                                                            color: ThemeColors
+                                                                .white),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 24),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Flexible(
-                              child: SizedBox(
-                                height: 135,
-                                child: Stack(
-                                  children: [
-                                    Positioned(
-                                      right: 0,
-                                      bottom: 0,
-                                      child: Image.asset('img/poke_img.png',
-                                          opacity: const AlwaysStoppedAnimation(
-                                              0.2)),
-                                    ),
-                                    Positioned(
-                                      bottom: -10,
-                                      child: Image.network(
-                                        pokemon.image,
-                                        height: 115,
-                                        width: 115,
+                                        ],
                                       ),
-                                    ),
-                                  ],
+                                      const SizedBox(height: 24),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                              Flexible(
+                                child: SizedBox(
+                                  height: 135,
+                                  child: Stack(
+                                    children: [
+                                      Positioned(
+                                        right: 0,
+                                        bottom: 0,
+                                        child: Image.asset(
+                                          'img/poke_img.png',
+                                          opacity: const AlwaysStoppedAnimation(
+                                            0.2,
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        bottom: -10,
+                                        child: Image.network(
+                                          pokemon.image,
+                                          height: 115,
+                                          width: 115,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       );
                     },

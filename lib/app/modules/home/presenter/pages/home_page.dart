@@ -33,13 +33,40 @@ class _HomePageState extends State<HomePage> {
     return BlocProvider(
       create: (_) => homeCubit,
       child: Scaffold(
-        body: PageView(
-          controller: pageController,
-          children: const [
-            ListPokemonsPage(),
-            FavoritePage(),
-            ProfilePage(),
-          ],
+        body: SafeArea(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 24,
+                  right: 24,
+                  top: 46,
+                ),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Image.asset('img/gear.png'),
+                        Image.asset('img/bell.png'),
+                      ],
+                    ),
+                    Image.asset('img/pokemon_img.png'),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: PageView(
+                  controller: pageController,
+                  children: const [
+                    ListPokemonsPage(),
+                    FavoritePage(),
+                    ProfilePage(),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
         bottomNavigationBar: BottomNavigationBar(
           items: <BottomNavigationBarItem>[

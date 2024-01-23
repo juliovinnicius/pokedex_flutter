@@ -18,6 +18,7 @@ class ThemeColors {
   static const fadedOrange = Color(0xFFEC8C4C);
   static const yellowishOrange = Color(0xFFF8A801);
   static const eletricYellow = Color(0xFFFCF47C);
+  static const yellow = Color(0xFFFDC000);
   static const lightPeach = Color(0xFFFFE0CA);
 
   //Azul
@@ -36,11 +37,13 @@ class ThemeColors {
   static const darkGray = Color(0xFF555252);
   static const tintedGray = Color(0xFF8A8886);
   static const blueGray = Color(0xFF89A0B3);
+  static const lightGray = Color(0xFFD9D9D9);
   static const silver = Color(0xFFB8B8B8);
   static const darkWhite = Color(0xFFCDCDCD);
   static const almostWhite = Color(0xFFF7F7F7);
   static const white = Color(0xFFFFFFFF);
   static const darkGray2 = Color(0xFF54473D);
+  static const gray31 = Color(0xFF4F4F4F);
   static const purpleBrown = Color(0xFF673E2C);
   static const chestNut = Color(0xFF7D3600);
   static const brownish = Color(0xFF9E6E53);
@@ -50,4 +53,14 @@ class ThemeColors {
   static const candyPink = Color(0xFFFF48CC);
   static const lavender = Color(0xFFDDA1E7);
   static const powderPink = Color(0xFFFDB7DA);
+
+  static const fireGradient = LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomLeft,
+    colors: <Color>[
+      Color(0xFFEBB753),
+      Color(0xFFC60000),
+    ],
+    tileMode: TileMode.clamp,
+  );
 }
