@@ -1,12 +1,29 @@
 import 'dart:convert';
 
-import 'package:pokedex_flutter/app/modules/home/domain/entity/pokemon_detail_home.dart';
+import 'package:hive/hive.dart';
+import 'package:pokedex_flutter/app/modules/home/external/adapters/type_adapter.dart';
+
+import '../../domain/entity/pokemon_detail_home.dart';
 
 class TypesAdapter {
-  static Future<Map<String, dynamic>> toMap(Types entity) async {
+  // static List<Map<String, dynamic>> toMapAsAuxiliaryReading(
+  //   List<Product> auxiliaryReading,
+  // ) {
+  //   final auxiliaryReadingAsMap = groupBy(auxiliaryReading, (e) => e.id);
+
+  //   return auxiliaryReadingAsMap.entries
+  //       .map(
+  //         (entry) => {
+  //           'productId': entry.key,
+  //           'quantity': entry.value.length,
+  //         },
+  //       )
+  //       .toList();
+  // }
+  static Map<String, dynamic> toMap(Types entity) {
     return {
       'slot': entity.slot,
-      'type': entity.type,
+      'type': TypePokemonAdapter.toMap(entity.type!),
     };
   }
 

@@ -1,13 +1,14 @@
 import 'dart:convert';
 
 import 'package:pokedex_flutter/app/modules/home/domain/entity/pokemon_detail_home.dart';
+import 'package:pokedex_flutter/app/modules/home/external/adapters/ability_adapter.dart';
 
 class AbilitiesAdapter {
-  static Future<Map<String, dynamic>> toMap(Abilities entity) async {
+  static Map<String, dynamic> toMap(Abilities entity) {
     return {
       'isHidden': entity.isHidden,
       'slot': entity.slot,
-      'ability': entity.ability,
+      'ability': AbilityAdapter.toMap(entity.ability),
     };
   }
 

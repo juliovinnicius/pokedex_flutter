@@ -6,16 +6,16 @@ import 'stats_adapter.dart';
 import 'types_adapter.dart';
 
 class PokemonDetailHomeAdapter {
-  static Map<String, dynamic> toMap(PokemonDetailHome entity) {
+  static Future<Map<String, dynamic>> toMap(PokemonDetailHome entity) async {
     return {
       'id': entity.id,
       'name': entity.name,
       'image': entity.image,
-      'type': entity.types,
+      'type': entity.types.map(TypesAdapter.toMap).toList(),
       'height': entity.height,
       'weight': entity.weight,
-      'stats': entity.stats,
-      'abilities': entity.abilities,
+      'stats': entity.stats.map(StatsAdapter.toMap).toList(),
+      'abilities': entity.abilities.map(AbilitiesAdapter.toMap).toList(),
     };
   }
 

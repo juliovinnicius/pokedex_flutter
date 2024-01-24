@@ -1,3 +1,4 @@
+import 'package:pokedex_flutter/app/modules/home/domain/dto/favorite_pokemon_dto.dart';
 import 'package:pokedex_flutter/app/modules/home/domain/dto/get_species_pokemon_dto.dart';
 import 'package:pokedex_flutter/app/modules/home/domain/entity/pokemon_species.dart';
 import 'package:result_dart/result_dart.dart';
@@ -18,4 +19,7 @@ abstract class IPokemonsRepository {
   AsyncResult<PokemonSpecies, AppException> getPokemonSpecies(
     GetSpeciesPokemonDTO dto,
   );
+
+  AsyncResult<PokemonDetailHome, AppException> storePokemon(
+      FavoritePokemonDTO dto);
 }

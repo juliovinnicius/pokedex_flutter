@@ -1,4 +1,4 @@
-import '../../exceptions/app_exception.dart';
+import '../../../exceptions/app_exception.dart';
 
 class HttpClientException extends AppException {
   HttpClientException({

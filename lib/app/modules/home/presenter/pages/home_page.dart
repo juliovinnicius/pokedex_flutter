@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:pokedex_flutter/app/modules/home/presenter/cubit/favorite_cubit.dart';
 import 'package:pokedex_flutter/app/modules/home/presenter/cubit/species_cubit.dart';
 
 import '../../../../core/themes/themes.dart';
@@ -19,6 +20,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final homeCubit = Modular.get<HomeCubit>();
   final speciesCubit = Modular.get<SpeciesCubit>();
+  final favoriteCubit = Modular.get<FavoriteCubit>();
 
   late final PageController pageController;
 
@@ -37,6 +39,7 @@ class _HomePageState extends State<HomePage> {
       providers: [
         BlocProvider<HomeCubit>(create: (_) => homeCubit),
         BlocProvider<SpeciesCubit>(create: (_) => speciesCubit),
+        BlocProvider<FavoriteCubit>(create: (_) => favoriteCubit),
       ],
       child: Scaffold(
         body: SafeArea(

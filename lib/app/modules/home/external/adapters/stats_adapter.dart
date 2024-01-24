@@ -1,13 +1,14 @@
 import 'dart:convert';
 
 import 'package:pokedex_flutter/app/modules/home/domain/entity/pokemon_detail_home.dart';
+import 'package:pokedex_flutter/app/modules/home/external/adapters/stat_adapter.dart';
 
 class StatsAdapter {
-  static Future<Map<String, dynamic>> toMap(Stats entity) async {
+  static Map<String, dynamic> toMap(Stats entity) {
     return {
       'baseStats': entity.baseStats,
       'effort': entity.effort,
-      'stat': entity.stat,
+      'stat': StatAdapter.toMap(entity.stat),
     };
   }
 

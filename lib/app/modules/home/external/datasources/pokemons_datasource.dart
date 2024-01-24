@@ -4,7 +4,7 @@ import 'package:pokedex_flutter/app/modules/home/external/adapters/species_adapt
 
 import '../../../../core/configurations/routes/app_api_routes.dart';
 import '../../../../core/exceptions/internal_server_exception.dart';
-import '../../../../core/packages/abstractions/i_http_client.dart';
+import '../../../../core/packages/http_client/abstractions/i_http_client.dart';
 import '../../domain/entity/pokemon.dart';
 import '../../domain/entity/pokemon_detail_home.dart';
 import '../../domain/entity/pokemon_species.dart';

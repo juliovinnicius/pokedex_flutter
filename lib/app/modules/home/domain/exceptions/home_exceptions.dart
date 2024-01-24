@@ -39,3 +39,11 @@ class UnableToGetPokemonSpeciesException extends HomeException {
     super.stackTrace,
   });
 }
+
+class UnableToStoreFavoritePokemonException extends HomeException {
+  UnableToStoreFavoritePokemonException({
+    required super.description,
+    super.error,
+    super.stackTrace,
+  });
+}
