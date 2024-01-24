@@ -1,7 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -33,6 +31,7 @@ class _ListPokemonsPageState extends State<ListPokemonsPage> {
   @override
   void initState() {
     homeCubit.getPokemon();
+    favoriteCubit.getFavoritePokemon();
     super.initState();
   }
 
@@ -203,7 +202,7 @@ class _ListPokemonsPageState extends State<ListPokemonsPage> {
                                   BlocBuilder<FavoriteCubit, FavoriteState>(
                                     builder: (context, state) {
                                       if (state is FavoriteInitial ||
-                                          state is FavoriteInitial ||
+                                          state is LoadingFavoriteState ||
                                           state is ErrorFavoriteState) {
                                         return Positioned(
                                           top: 10,
@@ -221,19 +220,33 @@ class _ListPokemonsPageState extends State<ListPokemonsPage> {
                                           ),
                                         );
                                       }
-                                      final favorite =
+                                      final listPokemon =
                                           (state as LoadedFavoriteState)
-                                              .pokemonDetail;
+                                              .listPokemonDetail;
+
+                                      var pokeIds =
+                                          listPokemon.map((poke) => poke.id);
+                                      bool isFavorite =
+                                          pokeIds.contains(pokemon.id);
+
                                       return Positioned(
                                         top: 10,
                                         right: 16,
                                         child: GestureDetector(
                                           onTap: () {
-                                            favoriteCubit
-                                                .storeFavorite(pokemon);
+                                            if (pokeIds.contains(pokemon.id)) {
+                                              favoriteCubit
+                                                  .removePokemonFavorite(
+                                                      pokemon);
+                                            } else {
+                                              favoriteCubit
+                                                  .storeFavorite(pokemon);
+                                            }
                                           },
                                           child: Image.asset(
-                                            'img/unfavorite_img.png',
+                                            isFavorite
+                                                ? 'img/favorite_img.png'
+                                                : 'img/unfavorite_img.png',
                                             height: 40,
                                             width: 40,
                                           ),

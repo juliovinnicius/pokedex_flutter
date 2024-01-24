@@ -50,6 +50,37 @@ class PokemonDetailHomeAdapter {
     );
   }
 
+  static PokemonDetailHome fromMapLocal(Map<String, dynamic> map) {
+    return PokemonDetailHome(
+      id: map['id'],
+      name: map['name'],
+      image: map['image'],
+      types: List<Types>.from(
+        map['type'].map(
+          (type) => TypesAdapter.fromMap(
+            type,
+          ),
+        ),
+      ),
+      height: map['height'],
+      weight: map['weight'],
+      stats: List<Stats>.from(
+        map['stats'].map(
+          (stat) => StatsAdapter.fromMap(
+            stat,
+          ),
+        ),
+      ),
+      abilities: List<Abilities>.from(
+        map['abilities'].map(
+          (ability) => AbilitiesAdapter.fromMap(
+            ability,
+          ),
+        ),
+      ),
+    );
+  }
+
   static String toJson(PokemonDetailHome entity) => json.encode(toMap(entity));
 
   static PokemonDetailHome fromJSON(String source) =>

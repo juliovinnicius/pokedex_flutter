@@ -22,4 +22,9 @@ abstract class IPokemonsRepository {
 
   AsyncResult<PokemonDetailHome, AppException> storePokemon(
       FavoritePokemonDTO dto);
+
+  AsyncResult<List<PokemonDetailHome>, AppException> getPokemonDetailFavorite();
+
+  AsyncResult<PokemonDetailHome, AppException> removePokemon(
+      FavoritePokemonDTO dto);
 }

@@ -99,4 +99,41 @@ class PokemonRepository implements IPokemonsRepository {
       );
     }
   }
+
+  @override
+  AsyncResult<List<PokemonDetailHome>, AppException>
+      getPokemonDetailFavorite() async {
+    try {
+      final listPokemons = await _localDataSource.getFavoritePokemon();
+      return Success(listPokemons);
+    } on AppException catch (exception) {
+      return Failure(exception);
+    } catch (exception) {
+      return Failure(
+        UnableToGetPokemonDetailFromLocalStorageException(
+          description: '$exception',
+          error: exception,
+        ),
+      );
+    }
+  }
+
+  @override
+  AsyncResult<PokemonDetailHome, AppException> removePokemon(
+      FavoritePokemonDTO dto) async {
+    try {
+      final pokemon =
+          await _localDataSource.removeFavoritePokemon(pokemon: dto.pokemon);
+      return Success(pokemon);
+    } on AppException catch (exception) {
+      return Failure(exception);
+    } catch (exception) {
+      return Failure(
+        UnableToRemoveFavoritePokemonFromLocalStorageException(
+          description: '$exception',
+          error: exception,
+        ),
+      );
+    }
+  }
 }

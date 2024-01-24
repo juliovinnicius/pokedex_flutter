@@ -47,3 +47,20 @@ class UnableToStoreFavoritePokemonException extends HomeException {
     super.stackTrace,
   });
 }
+
+class UnableToGetPokemonDetailFromLocalStorageException extends HomeException {
+  UnableToGetPokemonDetailFromLocalStorageException({
+    required super.description,
+    super.error,
+    super.stackTrace,
+  });
+}
+
+class UnableToRemoveFavoritePokemonFromLocalStorageException
+    extends HomeException {
+  UnableToRemoveFavoritePokemonFromLocalStorageException({
+    required super.description,
+    super.error,
+    super.stackTrace,
+  });
+}

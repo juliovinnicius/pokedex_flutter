@@ -1,4 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:pokedex_flutter/app/modules/home/domain/usecases/get_pokemon_detail_favorite.dart';
+import 'package:pokedex_flutter/app/modules/home/domain/usecases/remove_pokemon_favorite.dart';
 import 'package:pokedex_flutter/app/modules/home/presenter/cubit/favorite_cubit.dart';
 
 import '../../core/transitions/transitions.dart';
@@ -36,6 +38,10 @@ class HomeModule extends Module {
     i.addSingleton<IGetSpeciesPokemonUseCase>(GetSpeciesPokemonUseCase.new);
     i.addSingleton<IStoreFavoritePokemonUseCase>(
         StoreFavoritePokemonUseCase.new);
+    i.addSingleton<IGetPokemonDetailsFavoriteUseCase>(
+        GetPokemonDetailsFavoriteUseCase.new);
+    i.addSingleton<IRemoveFavoritePokemonUseCase>(
+        RemoveFavoritePokemonUseCase.new);
 
     //Cubit
     i.addSingleton(HomeCubit.new);

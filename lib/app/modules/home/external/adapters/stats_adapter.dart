@@ -14,7 +14,7 @@ class StatsAdapter {
 
   static Stats fromMap(Map<String, dynamic> map) {
     return Stats(
-      baseStats: map['base_stat'],
+      baseStats: map['base_stat'] ?? map['baseStats'],
       effort: map['effort'],
       stat: Stat(
         name: map['stat']['name'],

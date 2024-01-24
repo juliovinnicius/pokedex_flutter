@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:pokedex_flutter/app/core/extensions/type_extension.dart';
+import 'package:pokedex_flutter/app/modules/home/presenter/cubit/favorite_cubit.dart';
 
 import '../../../../../../core/extensions/capitalize_first_letter_extension.dart';
 import '../../../../../../core/extensions/pokemon_id_extension.dart';
@@ -19,6 +20,7 @@ class PokemonDetailsBottomSheet extends StatelessWidget {
 
   final PokemonDetailHome pokemon;
   final speciesCubit = Modular.get<SpeciesCubit>();
+  final favoriteCubit = Modular.get<FavoriteCubit>();
 
   @override
   Widget build(BuildContext context) {
@@ -59,55 +61,109 @@ class PokemonDetailsBottomSheet extends StatelessWidget {
                           topRight: Radius.circular(25),
                         ),
                       ),
-                      child: Row(
+                      child: Stack(
                         children: [
-                          Expanded(
-                            child: Stack(
-                              clipBehavior: Clip.none,
-                              children: [
-                                Positioned(
-                                  left: 5,
-                                  bottom: -15,
-                                  child: Image.network(
-                                    pokemon.image,
-                                    height: 220,
-                                    // width: 236,
+                          BlocBuilder<FavoriteCubit, FavoriteState>(
+                            bloc: favoriteCubit,
+                            builder: (context, state) {
+                              if (state is FavoriteInitial ||
+                                  state is LoadingFavoriteState ||
+                                  state is ErrorFavoriteState) {
+                                return Positioned(
+                                  top: 10,
+                                  right: 16,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      favoriteCubit.storeFavorite(pokemon);
+                                    },
+                                    child: Image.asset(
+                                      'img/unfavorite_img.png',
+                                      height: 40,
+                                      width: 40,
+                                    ),
+                                  ),
+                                );
+                              }
+                              final listPokemon = (state as LoadedFavoriteState)
+                                  .listPokemonDetail;
+
+                              var pokeIds = listPokemon.map((poke) => poke.id);
+                              bool isFavorite = pokeIds.contains(pokemon.id);
+
+                              return Positioned(
+                                top: 10,
+                                right: 16,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    if (pokeIds.contains(pokemon.id)) {
+                                      favoriteCubit
+                                          .removePokemonFavorite(pokemon);
+                                    } else {
+                                      favoriteCubit.storeFavorite(pokemon);
+                                    }
+                                  },
+                                  child: Image.asset(
+                                    isFavorite
+                                        ? 'img/favorite_img.png'
+                                        : 'img/unfavorite_img.png',
+                                    height: 40,
+                                    width: 40,
                                   ),
                                 ),
-                              ],
-                            ),
+                              );
+                            },
                           ),
-                          const SizedBox(width: 12),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Text(
-                                  pokemon.id.pokemonId(),
-                                  style: textTheme.labelSmall!.copyWith(
-                                    color: ThemeColors.white,
-                                  ),
-                                ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  pokemon.name.capitalizeFirstLetter(),
-                                  style: textTheme.displayLarge!.copyWith(
-                                    color: ThemeColors.white,
-                                  ),
-                                ),
-                                const SizedBox(height: 10),
-                                Row(
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Stack(
+                                  clipBehavior: Clip.none,
                                   children: [
-                                    ...pokemon.types.map(
-                                      (type) => TypeWidget(types: type),
+                                    Positioned(
+                                      left: 5,
+                                      bottom: -15,
+                                      child: Image.network(
+                                        pokemon.image,
+                                        height: 220,
+                                        // width: 236,
+                                      ),
                                     ),
                                   ],
                                 ),
-                                const SizedBox(height: 16)
-                              ],
-                            ),
-                          )
+                              ),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      pokemon.id.pokemonId(),
+                                      style: textTheme.labelSmall!.copyWith(
+                                        color: ThemeColors.white,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      pokemon.name.capitalizeFirstLetter(),
+                                      style: textTheme.displayLarge!.copyWith(
+                                        color: ThemeColors.white,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Row(
+                                      children: [
+                                        ...pokemon.types.map(
+                                          (type) => TypeWidget(types: type),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 16)
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
                         ],
                       ),
                     ),

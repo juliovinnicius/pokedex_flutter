@@ -13,12 +13,30 @@ class LoadingFavoriteState extends FavoriteState {
 }
 
 class LoadedFavoriteState extends FavoriteState {
-  LoadedFavoriteState({required this.pokemonDetail});
+  LoadedFavoriteState({
+    required this.listPokemonDetail,
+  });
 
-  final PokemonDetailHome pokemonDetail;
+  final List<PokemonDetailHome> listPokemonDetail;
 
   @override
-  List<Object> get props => [pokemonDetail];
+  List<Object> get props => [listPokemonDetail];
+}
+
+class StoredFavoriteState extends FavoriteState {
+  StoredFavoriteState({
+    required this.pokemon,
+    this.isFavorite = false,
+  });
+
+  final PokemonDetailHome pokemon;
+  final bool isFavorite;
+
+  @override
+  List<Object> get props => [
+        pokemon,
+        isFavorite,
+      ];
 }
 
 class ErrorFavoriteState extends FavoriteState {

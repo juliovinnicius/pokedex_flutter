@@ -5,7 +5,8 @@ abstract class IPokemonLocalDataSource {
     required PokemonDetailHome pokemon,
   });
 
-  // Future<List<Pokemon>> getFavoritePokemon();
+  Future<List<PokemonDetailHome>> getFavoritePokemon();
 
-  // Future<void> removeFavoritePokemon({required Pokemon pokemon});
+  Future<PokemonDetailHome> removeFavoritePokemon(
+      {required PokemonDetailHome pokemon});
 }

@@ -14,7 +14,7 @@ class AbilitiesAdapter {
 
   static Abilities fromMap(Map<String, dynamic> map) {
     return Abilities(
-      isHidden: map['is_hidden'],
+      isHidden: map['is_hidden'] ?? map['isHidden'],
       slot: map['slot'],
       ability: Ability(
         name: map['ability']['name'],
