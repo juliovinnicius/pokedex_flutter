@@ -1,3 +1,5 @@
+import 'package:pokedex_flutter/app/modules/home/domain/dto/get_species_pokemon_dto.dart';
+import 'package:pokedex_flutter/app/modules/home/domain/entity/pokemon_species.dart';
 import 'package:result_dart/result_dart.dart';
 
 import '../../../../core/exceptions/app_exception.dart';
@@ -10,5 +12,10 @@ abstract class IPokemonsRepository {
   AsyncResult<List<Pokemon>, AppException> getPokemons(GetAllPokemonsDTO dto);
 
   AsyncResult<List<PokemonDetailHome>, AppException> getDetailPokemonHome(
-      GetPokemonDetailHomeDTO dto);
+    GetPokemonDetailHomeDTO dto,
+  );
+
+  AsyncResult<PokemonSpecies, AppException> getPokemonSpecies(
+    GetSpeciesPokemonDTO dto,
+  );
 }

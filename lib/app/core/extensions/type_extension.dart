@@ -138,4 +138,21 @@ extension TypeExtension on Type {
 
     return image;
   }
+
+  LinearGradient typeBackgroundDetails() {
+    var color = ThemeColors.grassGradient;
+    if (name == 'grass') {
+      color = ThemeColors.grassGradient;
+    } else if (name == 'fire') {
+      color = ThemeColors.fireGradient;
+    } else if (name == 'water') {
+      color = ThemeColors.waterGradient;
+    } else if (name == 'electric') {
+      color = ThemeColors.electricGradient;
+    } else {
+      color = ThemeColors.grassGradient;
+    }
+
+    return color;
+  }
 }

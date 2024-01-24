@@ -2,7 +2,7 @@ class AppApiRoutes {
   final String _pokeApi;
 
   static const size = 10;
-  static const _baseUrl = 'https://pokeapi.co/api/v2/pokemon';
+  static const _baseUrl = 'https://pokeapi.co/api/v2';
 
   const AppApiRoutes({required String pokeApi}) : _pokeApi = pokeApi;
 
@@ -16,13 +16,16 @@ class AppApiRoutes {
     String? search,
   }) =>
       _buildQueryParameters(
-        url: _pokeApi,
+        url: '$_pokeApi/pokemon',
         limit: limit,
         offset: offset,
       );
 
   String getPokemonDetails(String pokemon) =>
-      _buildPathParameter(_pokeApi, value: pokemon);
+      _buildPathParameter('$_pokeApi/pokemon', value: pokemon);
+
+  String getPokemonSpecies(String id) =>
+      _buildPathParameter('$_pokeApi/pokemon-species', value: id);
 
   String _buildQueryParameters({
     required String url,

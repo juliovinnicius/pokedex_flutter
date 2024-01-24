@@ -63,4 +63,34 @@ class ThemeColors {
     ],
     tileMode: TileMode.clamp,
   );
+
+  static const grassGradient = LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomLeft,
+    colors: <Color>[
+      softGreen,
+      Color(0xFF55A23A),
+    ],
+    tileMode: TileMode.clamp,
+  );
+
+  static const waterGradient = LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomLeft,
+    colors: <Color>[
+      brightSkyBlue,
+      Color(0xFF157C9A),
+    ],
+    tileMode: TileMode.clamp,
+  );
+
+  static const electricGradient = LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomLeft,
+    colors: <Color>[
+      eletricYellow,
+      Color(0xFFBC8905),
+    ],
+    tileMode: TileMode.clamp,
+  );
 }

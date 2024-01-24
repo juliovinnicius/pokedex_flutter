@@ -18,6 +18,11 @@ class LoadingState extends HomeState {
   List<Object> get props => [];
 }
 
+class LoadingSpeciesState extends HomeState {
+  @override
+  List<Object> get props => [];
+}
+
 class LoadedPokemonDetailState extends HomeState {
   LoadedPokemonDetailState({required this.listPokemon});
 
@@ -27,14 +32,14 @@ class LoadedPokemonDetailState extends HomeState {
   List<Object> get props => [listPokemon];
 }
 
-// class LoadedMorePokemonState extends HomeState {
-//   LoadedMorePokemonState(this.listPokemon);
+class LoadedPokemonSpeciesState extends HomeState {
+  LoadedPokemonSpeciesState({required this.listPokemon});
 
-//   final List<PokemonDetailHome> listPokemon;
+  final List<PokemonSpecies> listPokemon;
 
-//   @override
-//   List<Object> get props => [listPokemon];
-// }
+  @override
+  List<Object> get props => [listPokemon];
+}
 
 class ErrorState extends HomeState {
   @override

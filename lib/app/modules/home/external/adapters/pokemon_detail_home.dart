@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:pokedex_flutter/app/modules/home/domain/entity/pokemon_detail_home.dart';
-import 'package:pokedex_flutter/app/modules/home/external/adapters/abilities_adapter.dart';
-import 'package:pokedex_flutter/app/modules/home/external/adapters/stats_adapter.dart';
-import 'package:pokedex_flutter/app/modules/home/external/adapters/types_adapter.dart';
+import '../../domain/entity/pokemon_detail_home.dart';
+import 'abilities_adapter.dart';
+import 'stats_adapter.dart';
+import 'types_adapter.dart';
 
 class PokemonDetailHomeAdapter {
   static Map<String, dynamic> toMap(PokemonDetailHome entity) {

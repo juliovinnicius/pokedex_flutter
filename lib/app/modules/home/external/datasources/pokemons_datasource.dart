@@ -1,15 +1,17 @@
 import 'dart:convert';
 
-import 'package:pokedex_flutter/app/core/configurations/routes/app_api_routes.dart';
-import 'package:pokedex_flutter/app/modules/home/domain/entity/pokemon.dart';
-import 'package:pokedex_flutter/app/modules/home/domain/entity/pokemon_detail_home.dart';
-import 'package:pokedex_flutter/app/modules/home/domain/exceptions/home_exceptions.dart';
-import 'package:pokedex_flutter/app/modules/home/external/adapters/pokemon_detail_home.dart';
-import 'package:pokedex_flutter/app/modules/home/external/adapters/pokemons_adapter.dart';
-import 'package:pokedex_flutter/app/modules/home/infrastructure/datasources/i_pokemons_datasource.dart';
+import 'package:pokedex_flutter/app/modules/home/external/adapters/species_adapter.dart';
 
+import '../../../../core/configurations/routes/app_api_routes.dart';
 import '../../../../core/exceptions/internal_server_exception.dart';
 import '../../../../core/packages/abstractions/i_http_client.dart';
+import '../../domain/entity/pokemon.dart';
+import '../../domain/entity/pokemon_detail_home.dart';
+import '../../domain/entity/pokemon_species.dart';
+import '../../domain/exceptions/home_exceptions.dart';
+import '../../infrastructure/datasources/i_pokemons_datasource.dart';
+import '../adapters/pokemon_detail_home.dart';
+import '../adapters/pokemons_adapter.dart';
 
 class PokemonsDataSource implements IPokemonsDataSource {
   final IHttpClient _httpClient;
@@ -44,7 +46,8 @@ class PokemonsDataSource implements IPokemonsDataSource {
 
   @override
   Future<List<PokemonDetailHome>> getPokemonDetailHome(
-      List<String> listName) async {
+    List<String> listName,
+  ) async {
     final listPokemons = <PokemonDetailHome>[];
     for (var name in listName) {
       final url = _appApiRoutes.getPokemonDetails(
@@ -66,5 +69,24 @@ class PokemonsDataSource implements IPokemonsDataSource {
       }
     }
     return listPokemons;
+  }
+
+  @override
+  Future<PokemonSpecies> getPokemonSpecies(int id) async {
+    final url = _appApiRoutes.getPokemonSpecies(
+      id.toString(),
+    );
+    final response = await _httpClient.get(url);
+
+    switch (response.statusCode) {
+      case 200:
+        return SpeciesAdapter.fromJSON(response.data);
+      case 400:
+        throw UnableToGetPokemonSpeciesException(
+          description: 'Unable to get species',
+        );
+      default:
+        throw InternalServerException(description: response.data);
+    }
   }
 }

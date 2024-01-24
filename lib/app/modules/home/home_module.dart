@@ -1,5 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:pokedex_flutter/app/modules/home/domain/usecases/get_pokemon_details_home_usecase.dart';
+import 'package:pokedex_flutter/app/modules/home/domain/usecases/get_species_pokemon_usecase.dart';
+import 'package:pokedex_flutter/app/modules/home/presenter/cubit/species_cubit.dart';
 import 'package:pokedex_flutter/app/modules/root_module.dart';
 
 import '../../core/transitions/transitions.dart';
@@ -26,9 +28,11 @@ class HomeModule extends Module {
     //Usecase
     i.addSingleton<IGetAllPokemonsUseCase>(GetAllPokemonsUseCase.new);
     i.addSingleton<IGetPokemonDetailsUseCase>(GetPokemonDetailsUseCase.new);
+    i.addSingleton<IGetSpeciesPokemonUseCase>(GetSpeciesPokemonUseCase.new);
 
     //Cubit
     i.addSingleton(HomeCubit.new);
+    i.addSingleton(SpeciesCubit.new);
   }
 
   @override

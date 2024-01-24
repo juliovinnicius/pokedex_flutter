@@ -1,6 +1,8 @@
 import 'package:pokedex_flutter/app/modules/home/domain/dto/get_all_pokemons_dto.dart';
 import 'package:pokedex_flutter/app/modules/home/domain/dto/get_pokemon_detail_home.dart';
+import 'package:pokedex_flutter/app/modules/home/domain/dto/get_species_pokemon_dto.dart';
 import 'package:pokedex_flutter/app/modules/home/domain/entity/pokemon_detail_home.dart';
+import 'package:pokedex_flutter/app/modules/home/domain/entity/pokemon_species.dart';
 import 'package:result_dart/result_dart.dart';
 
 import '../../../../core/exceptions/app_exception.dart';
@@ -48,6 +50,25 @@ class PokemonRepository implements IPokemonsRepository {
     } catch (exception) {
       return Failure(
         UnableToGetPokemonDetailException(
+          description: '$exception',
+          error: exception,
+        ),
+      );
+    }
+  }
+
+  @override
+  AsyncResult<PokemonSpecies, AppException> getPokemonSpecies(
+    GetSpeciesPokemonDTO dto,
+  ) async {
+    try {
+      final pokemonSpecies = await _dataSource.getPokemonSpecies(dto.idPokemon);
+      return Success(pokemonSpecies);
+    } on AppException catch (exception) {
+      return Failure(exception);
+    } catch (exception) {
+      return Failure(
+        UnableToGetPokemonSpeciesException(
           description: '$exception',
           error: exception,
         ),

@@ -31,3 +31,11 @@ class InvalidRequestOffsetException extends HomeException {
     super.stackTrace,
   });
 }
+
+class UnableToGetPokemonSpeciesException extends HomeException {
+  UnableToGetPokemonSpeciesException({
+    required super.description,
+    super.error,
+    super.stackTrace,
+  });
+}

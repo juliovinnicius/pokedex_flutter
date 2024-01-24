@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -5,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:pokedex_flutter/app/core/widgets/bottom_sheet_manager.dart';
 import 'package:pokedex_flutter/app/modules/home/domain/entity/pokemon_detail_home.dart';
+import 'package:pokedex_flutter/app/modules/home/presenter/cubit/species_cubit.dart';
 import 'package:pokedex_flutter/app/modules/home/presenter/submodules/list_pokemons/widgets/pokemon_details_bottomsheet.dart';
 
 import '../../../../../../core/extensions/capitalize_first_letter_extension.dart';
@@ -22,6 +25,7 @@ class ListPokemonsPage extends StatefulWidget {
 
 class _ListPokemonsPageState extends State<ListPokemonsPage> {
   final homeCubit = Modular.get<HomeCubit>();
+  final speciesCubit = Modular.get<SpeciesCubit>();
   late final ScrollController _scrollController = ScrollController();
 
   @override
@@ -100,7 +104,7 @@ class _ListPokemonsPageState extends State<ListPokemonsPage> {
                       final pokemon = listPokemons[index];
 
                       return GestureDetector(
-                        onTap: () {
+                        onTap: () async {
                           BottomSheetManager.showBottomSheetModal(
                             context: context,
                             content:

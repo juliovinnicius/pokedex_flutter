@@ -1,11 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:pokedex_flutter/app/modules/home/domain/dto/get_all_pokemons_dto.dart';
-import 'package:pokedex_flutter/app/modules/home/domain/dto/get_pokemon_detail_home.dart';
-import 'package:pokedex_flutter/app/modules/home/domain/entity/pokemon.dart';
-import 'package:pokedex_flutter/app/modules/home/domain/entity/pokemon_detail_home.dart';
-import 'package:pokedex_flutter/app/modules/home/domain/usecases/get_all_pokemon_usecase.dart';
-import 'package:pokedex_flutter/app/modules/home/domain/usecases/get_pokemon_details_home_usecase.dart';
+
+import '../../domain/dto/get_all_pokemons_dto.dart';
+import '../../domain/dto/get_pokemon_detail_home.dart';
+import '../../domain/entity/pokemon.dart';
+import '../../domain/entity/pokemon_detail_home.dart';
+import '../../domain/entity/pokemon_species.dart';
+import '../../domain/usecases/get_all_pokemon_usecase.dart';
+import '../../domain/usecases/get_pokemon_details_home_usecase.dart';
 
 part 'home_state.dart';
 
