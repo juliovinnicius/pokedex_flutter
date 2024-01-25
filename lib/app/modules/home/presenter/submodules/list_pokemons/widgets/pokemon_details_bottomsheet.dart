@@ -33,8 +33,9 @@ class PokemonDetailsBottomSheet extends StatelessWidget {
         bloc: speciesCubit,
         builder: (context, state) {
           if (state is SpeciesInitial || state is LoadingSpeciesState) {
-            return const Center(
-              child: CircularProgressIndicator(),
+            return Container(
+              color: ThemeColors.white,
+              child: const CircularProgressIndicator(),
             );
           }
 

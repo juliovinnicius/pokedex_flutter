@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pokedex_flutter/app/core/themes/themes.dart';
 import 'package:pokedex_flutter/app/modules/home/presenter/submodules/profile/widget/container_text.dart';
 import 'package:pokedex_flutter/app/modules/home/presenter/submodules/profile/widget/profile_button.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -11,6 +12,13 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  void openURL(String url) async {
+    var httpsUri = Uri.parse(url);
+    if (await canLaunchUrl(httpsUri)) {
+      await launchUrl(httpsUri);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -25,11 +33,11 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Image.asset('img/avatar_img.png'),
             ),
             Text(
-              'Mariana Yoshino',
+              'Júlio Macena',
               style: textTheme.headlineLarge,
             ),
             Text(
-              'UX / UI Designer at Guarani Sistemas',
+              'Desenvolvedor Pleno at Guarani Sistemas',
               style: textTheme.bodySmall!.copyWith(
                 color: ThemeColors.tintedGray,
               ),
@@ -54,12 +62,12 @@ class _ProfilePageState extends State<ProfilePage> {
             const ContainerText(
               title: 'Sobre mim',
               message:
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Semper viverra nam libero justo. Sed id semper risus in hendrerit.',
+                  'Sou desenvolvedor Frontend com foco em aplicações mobile, graduado em Engenharia Elétrica pelo IFPB. Possuo experiência profissionais trabalhando em projetos flutter com desenvolvimento guiado por testes, Test Driven Development, utilizando arquiteturas MVC, MVVN e Clean Architecture para aplicações Web e Mobile. Conhecimento Metodologia Ágil Scrum e Kanban.',
             ),
             const ContainerText(
               title: 'Sobre o projeto',
               message:
-                  'Protótipo realizado para Guarani Sistemas para o teste para a vaga de Desenvolvedor Flutter Pleno.',
+                  'Protótipo desenvolvido em flutter utilizando a api PokeAPI, para o teste de Desenvolvedor Flutter Pleno',
             ),
             const SizedBox(height: 40),
             Container(
@@ -72,11 +80,31 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Image.asset('img/linkedin_img.png'),
-                  Image.asset('img/insta_img.png'),
-                  Image.asset('img/github_img.png'),
-                  Image.asset('img/notion_img.png'),
-                  Image.asset('img/whatsapp_img.png'),
+                  GestureDetector(
+                    onTap: () {
+                      openURL('https://www.linkedin.com/in/julio-macena/');
+                    },
+                    child: Image.asset('img/linkedin_img.png'),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      openURL('https://www.instagram.com/juliovinnicius/');
+                    },
+                    child: Image.asset('img/insta_img.png'),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      openURL('https://github.com/juliovinnicius');
+                    },
+                    child: Image.asset('img/github_img.png'),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      openURL(
+                          'https://wa.me/83998491578/?text=${Uri.parse("message")}');
+                    },
+                    child: Image.asset('img/whatsapp_img.png'),
+                  ),
                 ],
               ),
             )
