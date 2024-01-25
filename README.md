@@ -1,16 +1,12 @@
-# pokedex_flutter
+# Pokedex
 
-A new Flutter project.
+Este projeto está na versão 3.13.9 do flutter e versão 3.1.5 do dart
 
-## Getting Started
+## Como rodar o projeto
+1. Execute no terminal na pasta no projeto o comando:`flutter pub get`
+2. Execute o projeto 
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Tecnologias utilizadas
+1. Hive: Banco de dados NoSQL
+2. Cubit/Bloc: Gerência de estado
+3. Modular: Gestão de rotas e injeção de dependências
